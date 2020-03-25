@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 
 
+
 public class Main {
 	static String input;
 	
@@ -40,8 +41,8 @@ public class Main {
 	    System.out.println("(1) Show Task list");
 	    System.out.println("(2) Add new task");
 	    System.out.println("(3) Edit task (update,mark as done , remove) ");
-	    System.out.println("(4) Save and quit");
-	    System.out.println("(5) Exit");
+	    System.out.println("(4) Save and exit");
+	    System.out.println("(5) Exit without saving");
 	    UserInput();
 	}
 	
@@ -107,13 +108,16 @@ public class Main {
 			}
 			else if(input.equalsIgnoreCase("2")){
 				System.out.println("Add new task");
+				addNewTask();
 			}
 			else if(input.equalsIgnoreCase("3")){
 				System.out.println("Edit task");
 				ShowTaskList();
 			}
 			else if(input.equalsIgnoreCase("4")){
-				System.out.println("Task list is saved");
+				System.out.println("Tasklist is saved");
+				savingTaskToFile();
+				
 			}
 			else if(input.equalsIgnoreCase("5")){
 				exitApplication();
@@ -129,6 +133,51 @@ public class Main {
  public static void exitApplication(){
 	 System.out.println("Thank you for using To-Do List");
  }
+ 
+ public static void addNewTask() {
+	 System.out.println("Enter Project name: ");
+	 String projectName = scanInutFromUser();
+	 System.out.println("Enter Task title: ");
+	 String taskTitle = scanInutFromUser();
+	 System.out.println("Enter Due date (yyyy-mm-dd): ");
+	 String dueDate = scanInutFromUser();
+	 Task createdTaskFromUser = new Task (projectName,LocalDate.parse(dueDate),false,taskTitle);
+	 taskList.add(createdTaskFromUser);
+	 System.out.println("Task is added succefully");
+	 UserInput();
+	 
+ }
+ 
+ public static String scanInutFromUser() {
+	 Scanner scanner = new Scanner(System.in); 	
+			input = scanner.nextLine(); 
+			return input;
+ }
+ 
+ public static void savingTaskToFile() {
+	 PrintWriter pw;
+	try {
+		pw = new PrintWriter("Testproject.txt");
+		for (Task task:taskList ) {
+			StringBuilder stringBuilder = new StringBuilder();
+			stringBuilder.append(task.getProjectName());
+			stringBuilder.append(";");
+			stringBuilder.append(task.getTitle());
+			stringBuilder.append(";");
+			stringBuilder.append(task.getEndDate());
+			stringBuilder.append(";");
+			stringBuilder.append(task.getStatus());
+			 pw.println(stringBuilder.toString());
+		 }
+		pw.flush();
+		pw.close();
+	} catch (FileNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} 
+		 
+ }
 }
+
 
 

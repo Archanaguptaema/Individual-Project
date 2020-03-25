@@ -1,3 +1,8 @@
-General;Call;2020-03-30;False
-General;Meeting;2020-04-30;False
-General;send e-mail;2020-04-15;False
+General;Call;2020-03-30;false
+General;Meeting;2020-04-30;false
+General;send e-mail;2020-04-15;false
+test1;Test1;2020-05-30;false
+Test2;test;2020-05-30;false
+test2;test 3;2020-06-04;false
+c;c;2020-04-05;false
+d;d;2020-05-06;false
